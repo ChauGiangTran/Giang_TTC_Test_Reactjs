@@ -1,15 +1,18 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-const Home = lazy(() => import('./routes/Home'));
-const Blog = lazy(() => import('./routes/Blog'));
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Loading from './components/Loading';
+import Home from './routes/Home';
+import Blog from './routes/Blog';
+const CreateBlog = lazy(() => import('./routes/CreateBlog'));
 
 function App() {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
-          <Route exact path="/blog" element={<Blog />}></Route>
+          <Route exact path="/blog/:id" element={<Blog />}></Route>
+          <Route exact path="/create_blog" element={<CreateBlog />}></Route>
         </Routes>
       </Suspense>
     </Router>
